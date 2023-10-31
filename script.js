@@ -9,12 +9,26 @@ chessBoard = [
     [1, 8, "none", "none"], [2, 8, "none", "none"], [3, 8, "none", "none"], [4, 8, "none", "none"], [5, 8, "none", "none"], [6, 8, "none", "none"], [7, 8, "none", "none"], [8, 8, "none", "none"]
 ];
 
-let allMovesForRook;
-function allMovesForRook(x, y) {
+let allMoves;
+let legalMoves;
 
+function getAllMovesForRook(x, y) {
+    let allMoves = [];
+    for (let i = 1; i <= 8; i++) {
+        allMoves.push([i, y]);
+    }
+    for (let i = 1; i <= 8; i++) {
+        allMoves.push([x, i]);
+    }
+    for (let i = 1; i <= 2; i++) {
+        let index = allMoves.findIndex(a=>{return JSON.stringify(a)===JSON.stringify([x, y])})
+        allMoves.splice(index, 1);
+    }
+    return allMoves;
 }
+console.log(getAllMovesForRook(1, 1));
+console.log(JSON.stringify(getAllMovesForRook(1, 1)));
 
-let legalMovesForRook;
-function legalMovesForRook(x, y, color) {
+function getLegalMovesForRook(x, y, color) {
 
 }
