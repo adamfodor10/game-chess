@@ -1,10 +1,10 @@
 let chessBoard = [
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "rook"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["black", "rook"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "rook"], ["none", "none"], ["white", "rook"], ["none", "none"]], 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
     [["none", "none"], ["black", "rook"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "rook"]], 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "rook"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["black", "rook"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "rook"], ["none", "none"], ["white", "rook"], ["none", "none"]], 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]]
 ];
@@ -65,6 +65,63 @@ function getMovesForRook(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
+function getMovesForBishop(xcoord, ycoord, step) {
+    movesNoCapture = [];
+    movesCapture = [];
+    let currentColor;
+    if (step % 2 === 1) currentColor = 'white';
+    else currentColor = 'black';
+
+    for (let i = 1; i < 8; i++) {
+        if (((xcoord + i) > 7) || ((ycoord + i) > 7)) break;
+        if (chessBoard[xcoord + i][ycoord + i].includes('none')) {
+            movesNoCapture.push([xcoord + i, ycoord + i]);
+        } else if (chessBoard[xcoord + i][ycoord + i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xcoord + i, ycoord + i]);
+            break;
+        }
+    }
+    for (let i = 1; i < 8; i++) {
+        if (((xcoord - i) < 0) || ((ycoord - i) < 0)) break;
+        if (chessBoard[xcoord - i][ycoord - i].includes('none')) {
+            movesNoCapture.push([xcoord - i, ycoord - i]);
+        } else if (chessBoard[xcoord - i][ycoord - i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xcoord - i, ycoord - i]);
+            break;
+        }
+    }
+
+    for (let i = 1; i < 8; i++) {
+        if (((xcoord + i) > 7) || ((ycoord - i) < 0)) break;
+        if (chessBoard[xcoord + i][ycoord - i].includes('none')) {
+            movesNoCapture.push([xcoord + i, ycoord - i]);
+        } else if (chessBoard[xcoord + i][ycoord - i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xcoord + i, ycoord - i]);
+            break;
+        }
+    }
+
+    for (let i = 1; i < 8; i++) {
+        if (((xcoord - i) < 0) || ((ycoord + i) > 8)) break;
+        if (chessBoard[xcoord - i][ycoord + i].includes('none')) {
+            movesNoCapture.push([xcoord - i, ycoord + i]);
+        } else if (chessBoard[xcoord - i][ycoord + i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xcoord - i, ycoord + i]);
+            break;
+        }
+    }
+    return movesNoCapture, movesCapture;
+}
+
 getMovesForRook(3, 4, stepNumber);
+getMovesForBishop(3, 4, stepNumber);
 console.log(movesNoCapture);
 console.log(movesCapture);
