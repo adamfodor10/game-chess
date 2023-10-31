@@ -1,34 +1,70 @@
-chessBoard = [
-    [1, 1, "none", "none"], [2, 1, "none", "none"], [3, 1, "none", "none"], [4, 1, "none", "none"], [5, 1, "none", "none"], [6, 1, "none", "none"], [7, 1, "none", "none"], [8, 1, "none", "none"], 
-    [1, 2, "none", "none"], [2, 2, "none", "none"], [3, 2, "none", "none"], [4, 2, "none", "none"], [5, 2, "none", "none"], [6, 2, "none", "none"], [7, 2, "none", "none"], [8, 2, "none", "none"],
-    [1, 3, "none", "none"], [2, 3, "none", "none"], [3, 3, "none", "none"], [4, 3, "none", "none"], [5, 3, "none", "none"], [6, 3, "none", "none"], [7, 3, "none", "none"], [8, 3, "none", "none"],
-    [1, 4, "none", "none"], [2, 4, "none", "none"], [3, 4, "none", "none"], [4, 4, "none", "none"], [5, 4, "none", "none"], [6, 4, "none", "none"], [7, 4, "none", "none"], [8, 4, "none", "none"],
-    [1, 5, "none", "none"], [2, 5, "none", "none"], [3, 5, "none", "none"], [4, 5, "none", "none"], [5, 5, "none", "none"], [6, 5, "none", "none"], [7, 5, "none", "none"], [8, 5, "none", "none"],
-    [1, 6, "none", "none"], [2, 6, "none", "none"], [3, 6, "none", "none"], [4, 6, "none", "none"], [5, 6, "none", "none"], [6, 6, "none", "none"], [7, 6, "none", "none"], [8, 6, "none", "none"],
-    [1, 7, "none", "none"], [2, 7, "none", "none"], [3, 7, "none", "none"], [4, 7, "none", "none"], [5, 7, "none", "none"], [6, 7, "none", "none"], [7, 7, "none", "none"], [8, 7, "none", "none"],
-    [1, 8, "none", "none"], [2, 8, "none", "none"], [3, 8, "none", "none"], [4, 8, "none", "none"], [5, 8, "none", "none"], [6, 8, "none", "none"], [7, 8, "none", "none"], [8, 8, "none", "none"]
+let chessBoard = [
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "rook"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["black", "rook"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "rook"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "rook"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]], 
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]]
 ];
 
-let allMoves;
-let legalMoves;
+let stepNumber = 1;
+let movesCapture = [];
+let movesNoCapture = [];
 
-function getAllMovesForRook(x, y) {
-    let allMoves = [];
-    for (let i = 1; i <= 8; i++) {
-        allMoves.push([i, y]);
+function getMovesForRook(xcoord, ycoord, step) {
+    movesNoCapture = [];
+    movesCapture = [];
+    let currentColor;
+    if (step % 2 === 1) currentColor = 'white';
+    else currentColor = 'black';
+
+    for (let i = xcoord + 1; i < 8; i++) {
+        if (chessBoard[i][ycoord].includes('none')) {
+            movesNoCapture.push([i, ycoord]);
+        } else if (chessBoard[i][ycoord].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([i, ycoord]);
+            break;
+        }
     }
-    for (let i = 1; i <= 8; i++) {
-        allMoves.push([x, i]);
+    for (let i = xcoord - 1; i >= 0; i--) {
+        if (chessBoard[i][ycoord].includes('none')) {
+            movesNoCapture.push([i, ycoord]);
+        } else if (chessBoard[i][ycoord].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([i, ycoord]);
+            break;
+        }
     }
-    for (let i = 1; i <= 2; i++) {
-        let index = allMoves.findIndex(a=>{return JSON.stringify(a)===JSON.stringify([x, y])})
-        allMoves.splice(index, 1);
+
+    for (let i = ycoord + 1; i < 8; i++) {
+        if (chessBoard[xcoord][i].includes('none')) {
+            movesNoCapture.push([xcoord, i]);
+        } else if (chessBoard[xcoord][i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xcoord, i]);
+            break;
+        }
     }
-    return allMoves;
+
+    for (let i = ycoord - 1; i >= 0; i--) {
+        if (chessBoard[xcoord][i].includes('none')) {
+            movesNoCapture.push([xcoord, i]);
+        } else if (chessBoard[xcoord][i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xcoord, i]);
+            break;
+        }
+    }
+    return movesNoCapture, movesCapture;
 }
-console.log(getAllMovesForRook(1, 1));
-console.log(JSON.stringify(getAllMovesForRook(1, 1)));
 
-function getLegalMovesForRook(x, y, color) {
-
-}
+getMovesForRook(3, 4, stepNumber);
+console.log(movesNoCapture);
+console.log(movesCapture);
