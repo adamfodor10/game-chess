@@ -1,2 +1,2 @@
 # game-chess
-Chess game for playing with a friend.
+Chess game playing with a friend.
