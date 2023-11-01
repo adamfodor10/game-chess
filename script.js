@@ -1,5 +1,5 @@
 let chessBoard = [
-    [["none", "none"], ["black", "non"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["none", "none"], ["black", "non"], ["black", "non"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "non"], ["none", "none"], ["white", "non"], ["none", "none"]],
 
@@ -13,7 +13,7 @@ let chessBoard = [
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]]
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "non"], ["none", "none"], ["none", "none"]]
 ];
 
 let stepNumber = 1;
@@ -311,10 +311,61 @@ function getMovesForKnight(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
+function getMovesForPawn (xcoord, ycoord, step) {
+    movesNoCapture = [];
+    movesCapture = [];
+    let currentColor;
+    if (step % 2 === 1) currentColor = 'white';
+    else currentColor = 'black';
+
+    if (currentColor === 'white') {
+        if (ycoord + 1 <= 7) {
+            if (chessBoard[xcoord][ycoord + 1].includes('none')) {
+                movesNoCapture.push([(xcoord), (ycoord + 1)]);
+            }
+        }
+        if ((ycoord + 2 === 3) && (chessBoard[xcoord][ycoord + 1].includes('none'))) {
+            if (chessBoard[xcoord][ycoord + 2].includes('none')) {
+                movesNoCapture.push([(xcoord), (ycoord + 2)]);
+            }
+        }
+
+        if (((xcoord + 1) <= 7) && ((ycoord + 1) <= 7) && (chessBoard[xcoord + 1][ycoord + 1].includes('black'))) {
+            movesCapture.push([(xcoord + 1), (ycoord + 1)]);
+        }
+        if (((xcoord - 1) >= 0) && ((ycoord + 1) <= 7) && (chessBoard[xcoord - 1][ycoord + 1].includes('black'))) {
+            movesCapture.push([(xcoord - 1), (ycoord + 1)]);
+        }
+    }
+
+    if (currentColor === 'black') {
+        if (ycoord - 1 >= 0) {
+            if (chessBoard[xcoord][ycoord -1].includes('none')) {
+                movesNoCapture.push([(xcoord), (ycoord - 1)]);
+            }
+        }
+        if ((ycoord - 2 === 4) && (chessBoard[xcoord][ycoord -1].includes('none'))) {
+            if (chessBoard[xcoord][ycoord - 2].includes('none')) {
+                movesNoCapture.push([(xcoord), (ycoord - 2)]);
+            }
+        }
+
+        if (((xcoord + 1) <= 7) && ((ycoord - 1) >= 0) && (chessBoard[xcoord + 1][ycoord - 1].includes('white'))) {
+            movesCapture.push([(xcoord + 1), (ycoord - 1)]);
+        }
+        if (((xcoord - 1) >= 0) && ((ycoord - 1) >= 0) && (chessBoard[xcoord - 1][ycoord - 1].includes('white'))) {
+            movesCapture.push([(xcoord - 1), (ycoord - 1)]);
+        }
+    }
+
+    return movesNoCapture, movesCapture;
+}
+
 // getMovesForRook(3, 4, stepNumber);
 // getMovesForBishop(3, 4, stepNumber);
 // getMovesForQueen(3, 4, stepNumber);
 // getMovesForKing(3, 4, stepNumber);
-// getMovesForKnight(3, 4, stepNumber);
+// getMovesForKnight(3, 5, stepNumber);
+// getMovesForPawn (0, 1, stepNumber);
 console.log(movesNoCapture);
 console.log(movesCapture);
