@@ -272,6 +272,45 @@ function getMovesForKing(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
+function getMovesForKnight(xcoord, ycoord, step) {
+    movesNoCapture = [];
+    movesCapture = [];
+    let currentColor;
+    if (step % 2 === 1) currentColor = 'white';
+    else currentColor = 'black';
+
+    let allMovesForKnight = [
+        [xcoord + 2, ycoord + 1],
+        [xcoord + 2, ycoord - 1],
+        [xcoord - 2, ycoord + 1],
+        [xcoord - 2, ycoord - 1],
+
+        [xcoord + 1, ycoord + 2],
+        [xcoord - 1, ycoord + 2],
+        [xcoord + 1, ycoord - 2],
+        [xcoord - 1, ycoord - 2]
+    ];
+
+    for (let i = 0; i < 8; i++) {
+        if ((allMovesForKnight[i][0] > 7)
+        || (allMovesForKnight[i][0] < 0)
+        || (allMovesForKnight[i][1] > 7)
+        || (allMovesForKnight[i][1] < 0)) {
+            continue;
+        } else {
+            if (chessBoard[allMovesForKnight[i][0]][allMovesForKnight[i][1]].includes('none')) {
+                movesNoCapture.push([(allMovesForKnight[i][0]), (allMovesForKnight[i][1])]);
+            } else if (chessBoard[allMovesForKnight[i][0]][allMovesForKnight[i][1]].includes(currentColor)) {
+                continue;
+            } else {
+                movesCapture.push([(allMovesForKnight[i][0]), (allMovesForKnight[i][1])]);
+            }
+        }
+    }
+
+    return movesNoCapture, movesCapture;
+}
+
 // getMovesForRook(3, 4, stepNumber);
 // getMovesForBishop(3, 4, stepNumber);
 // getMovesForQueen(3, 4, stepNumber);
