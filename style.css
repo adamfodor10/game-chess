@@ -4,3 +4,40 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+.chess-board-container {
+    margin: 100px 0px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.chess-board {
+    flex-basis: 800px;
+    height: 860px;
+}
+
+.row-label {
+    flex-basis: 30px;
+    background-color: black;
+}
+
+.column-label {
+    height: 30px;
+    background-color: black;
+}
+
+.row {
+    height: 100px;
+
+    display: flex;
+}
+
+.square {
+    flex-basis: 100px;
+    height: 100px;
+}
+
+.blacksquare {
+    background-color: gray;
+}
