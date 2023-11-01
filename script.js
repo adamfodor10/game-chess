@@ -17,8 +17,8 @@ let chessBoard = [
 ];
 
 let stepNumber = 1;
-let movesCapture = [];
 let movesNoCapture = [];
+let movesCapture = [];
 
 function getMovesForRook(xcoord, ycoord, step) {
     movesNoCapture = [];
@@ -243,13 +243,13 @@ function getMovesForKing(xcoord, ycoord, step) {
 
     let allMovesForKing = [
         [xcoord + 1, ycoord],
-        [xcoord + 1, ycoord + 1],
-        [xcoord, ycoord + 1],
-        [xcoord - 1, ycoord + 1],
         [xcoord - 1, ycoord],
-        [xcoord - 1, ycoord - 1],
+        [xcoord, ycoord + 1],
         [xcoord, ycoord - 1],
-        [xcoord + 1, ycoord - 1]
+        [xcoord + 1, ycoord + 1],
+        [xcoord - 1, ycoord - 1],
+        [xcoord + 1, ycoord - 1],
+        [xcoord - 1, ycoord + 1]
     ];
 
     for (let i = 0; i < 8; i++) {
@@ -258,7 +258,6 @@ function getMovesForKing(xcoord, ycoord, step) {
         || (allMovesForKing[i][1] > 7)
         || (allMovesForKing[i][1] < 0)) {
             continue;
-
         } else {
             if (chessBoard[allMovesForKing[i][0]][allMovesForKing[i][1]].includes('none')) {
                 movesNoCapture.push([(allMovesForKing[i][0]), (allMovesForKing[i][1])]);
@@ -276,6 +275,7 @@ function getMovesForKing(xcoord, ycoord, step) {
 // getMovesForRook(3, 4, stepNumber);
 // getMovesForBishop(3, 4, stepNumber);
 // getMovesForQueen(3, 4, stepNumber);
-getMovesForKing(3, 4, stepNumber);
+// getMovesForKing(3, 4, stepNumber);
+// getMovesForKnight(3, 4, stepNumber);
 console.log(movesNoCapture);
 console.log(movesCapture);
