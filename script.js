@@ -330,10 +330,12 @@ function getMovesForPawn (xcoord, ycoord, step) {
             }
         }
 
-        if (((xcoord + 1) <= 7) && ((ycoord + 1) <= 7) && (chessBoard[xcoord + 1][ycoord + 1].includes('black'))) {
+        if (((xcoord + 1) <= 7) && ((ycoord + 1) <= 7)
+            && (chessBoard[xcoord + 1][ycoord + 1].includes('black'))) {
             movesCapture.push([(xcoord + 1), (ycoord + 1)]);
         }
-        if (((xcoord - 1) >= 0) && ((ycoord + 1) <= 7) && (chessBoard[xcoord - 1][ycoord + 1].includes('black'))) {
+        if (((xcoord - 1) >= 0) && ((ycoord + 1) <= 7)
+            && (chessBoard[xcoord - 1][ycoord + 1].includes('black'))) {
             movesCapture.push([(xcoord - 1), (ycoord + 1)]);
         }
     }
@@ -350,10 +352,12 @@ function getMovesForPawn (xcoord, ycoord, step) {
             }
         }
 
-        if (((xcoord + 1) <= 7) && ((ycoord - 1) >= 0) && (chessBoard[xcoord + 1][ycoord - 1].includes('white'))) {
+        if (((xcoord + 1) <= 7) && ((ycoord - 1) >= 0)
+            && (chessBoard[xcoord + 1][ycoord - 1].includes('white'))) {
             movesCapture.push([(xcoord + 1), (ycoord - 1)]);
         }
-        if (((xcoord - 1) >= 0) && ((ycoord - 1) >= 0) && (chessBoard[xcoord - 1][ycoord - 1].includes('white'))) {
+        if (((xcoord - 1) >= 0) && ((ycoord - 1) >= 0)
+            && (chessBoard[xcoord - 1][ycoord - 1].includes('white'))) {
             movesCapture.push([(xcoord - 1), (ycoord - 1)]);
         }
     }

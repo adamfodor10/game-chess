@@ -6,15 +6,15 @@
 }
 
 .chess-board-container {
-    margin: 100px 0px;
+    margin: 40px 0px;
 
     display: flex;
     justify-content: center;
 }
 
 .chess-board {
-    flex-basis: 800px;
-    height: 880px;
+    min-width: 800px;
+    min-height: 880px;
 }
 
 .row-label {
@@ -34,8 +34,8 @@
 .row-label-number {
     font-size: 20px;
     color: black;
-    flex-grow: 1;
     width: 36px;
+    flex-grow: 1;
     border-top: 1px solid;
     border-bottom: 1px solid;
 
@@ -65,8 +65,8 @@
 .column-label-letter {
     font-size: 20px;
     color: black;
-    flex-grow: 1;
     height: 36px;
+    flex-grow: 1;
     border-left: 1px solid;
     border-right: 1px solid;
 
