@@ -1,5 +1,5 @@
 let chessBoard = [
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "king"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
@@ -20,53 +20,53 @@ let stepNumber = 1;
 let movesNoCapture = [];
 let movesCapture = [];
 
-function getMovesForRook(xcoord, ycoord, step) {
+function getMovesForRook(xCoord, yCoord, step) {
     movesNoCapture = [];
     movesCapture = [];
     let currentColor;
     if (step % 2 === 1) currentColor = 'white';
     else currentColor = 'black';
 
-    for (let i = xcoord + 1; i < 8; i++) {
-        if (chessBoard[i][ycoord].includes('none')) {
-            movesNoCapture.push([i, ycoord]);
-        } else if (chessBoard[i][ycoord].includes(currentColor)) {
+    for (let i = xCoord + 1; i < 8; i++) {
+        if (chessBoard[i][yCoord].includes('none')) {
+            movesNoCapture.push([i, yCoord]);
+        } else if (chessBoard[i][yCoord].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([i, ycoord]);
+            movesCapture.push([i, yCoord]);
             break;
         }
     }
 
-    for (let i = xcoord - 1; i >= 0; i--) {
-        if (chessBoard[i][ycoord].includes('none')) {
-            movesNoCapture.push([i, ycoord]);
-        } else if (chessBoard[i][ycoord].includes(currentColor)) {
+    for (let i = xCoord - 1; i >= 0; i--) {
+        if (chessBoard[i][yCoord].includes('none')) {
+            movesNoCapture.push([i, yCoord]);
+        } else if (chessBoard[i][yCoord].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([i, ycoord]);
+            movesCapture.push([i, yCoord]);
             break;
         }
     }
 
-    for (let i = ycoord + 1; i < 8; i++) {
-        if (chessBoard[xcoord][i].includes('none')) {
-            movesNoCapture.push([xcoord, i]);
-        } else if (chessBoard[xcoord][i].includes(currentColor)) {
+    for (let i = yCoord + 1; i < 8; i++) {
+        if (chessBoard[xCoord][i].includes('none')) {
+            movesNoCapture.push([xCoord, i]);
+        } else if (chessBoard[xCoord][i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord, i]);
+            movesCapture.push([xCoord, i]);
             break;
         }
     }
 
-    for (let i = ycoord - 1; i >= 0; i--) {
-        if (chessBoard[xcoord][i].includes('none')) {
-            movesNoCapture.push([xcoord, i]);
-        } else if (chessBoard[xcoord][i].includes(currentColor)) {
+    for (let i = yCoord - 1; i >= 0; i--) {
+        if (chessBoard[xCoord][i].includes('none')) {
+            movesNoCapture.push([xCoord, i]);
+        } else if (chessBoard[xCoord][i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord, i]);
+            movesCapture.push([xCoord, i]);
             break;
         }
     }
@@ -74,7 +74,7 @@ function getMovesForRook(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
-function getMovesForBishop(xcoord, ycoord, step) {
+function getMovesForBishop(xCoord, yCoord, step) {
     movesNoCapture = [];
     movesCapture = [];
     let currentColor;
@@ -82,49 +82,49 @@ function getMovesForBishop(xcoord, ycoord, step) {
     else currentColor = 'black';
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord + i) > 7) || ((ycoord + i) > 7)) break;
-        if (chessBoard[xcoord + i][ycoord + i].includes('none')) {
-            movesNoCapture.push([xcoord + i, ycoord + i]);
-        } else if (chessBoard[xcoord + i][ycoord + i].includes(currentColor)) {
+        if (((xCoord + i) > 7) || ((yCoord + i) > 7)) break;
+        if (chessBoard[xCoord + i][yCoord + i].includes('none')) {
+            movesNoCapture.push([xCoord + i, yCoord + i]);
+        } else if (chessBoard[xCoord + i][yCoord + i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord + i, ycoord + i]);
+            movesCapture.push([xCoord + i, yCoord + i]);
             break;
         }
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord - i) < 0) || ((ycoord - i) < 0)) break;
-        if (chessBoard[xcoord - i][ycoord - i].includes('none')) {
-            movesNoCapture.push([xcoord - i, ycoord - i]);
-        } else if (chessBoard[xcoord - i][ycoord - i].includes(currentColor)) {
+        if (((xCoord - i) < 0) || ((yCoord - i) < 0)) break;
+        if (chessBoard[xCoord - i][yCoord - i].includes('none')) {
+            movesNoCapture.push([xCoord - i, yCoord - i]);
+        } else if (chessBoard[xCoord - i][yCoord - i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord - i, ycoord - i]);
+            movesCapture.push([xCoord - i, yCoord - i]);
             break;
         }
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord + i) > 7) || ((ycoord - i) < 0)) break;
-        if (chessBoard[xcoord + i][ycoord - i].includes('none')) {
-            movesNoCapture.push([xcoord + i, ycoord - i]);
-        } else if (chessBoard[xcoord + i][ycoord - i].includes(currentColor)) {
+        if (((xCoord + i) > 7) || ((yCoord - i) < 0)) break;
+        if (chessBoard[xCoord + i][yCoord - i].includes('none')) {
+            movesNoCapture.push([xCoord + i, yCoord - i]);
+        } else if (chessBoard[xCoord + i][yCoord - i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord + i, ycoord - i]);
+            movesCapture.push([xCoord + i, yCoord - i]);
             break;
         }
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord - i) < 0) || ((ycoord + i) > 8)) break;
-        if (chessBoard[xcoord - i][ycoord + i].includes('none')) {
-            movesNoCapture.push([xcoord - i, ycoord + i]);
-        } else if (chessBoard[xcoord - i][ycoord + i].includes(currentColor)) {
+        if (((xCoord - i) < 0) || ((yCoord + i) > 8)) break;
+        if (chessBoard[xCoord - i][yCoord + i].includes('none')) {
+            movesNoCapture.push([xCoord - i, yCoord + i]);
+        } else if (chessBoard[xCoord - i][yCoord + i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord - i, ycoord + i]);
+            movesCapture.push([xCoord - i, yCoord + i]);
             break;
         }
     }
@@ -132,101 +132,101 @@ function getMovesForBishop(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
-function getMovesForQueen(xcoord, ycoord, step) {
+function getMovesForQueen(xCoord, yCoord, step) {
     movesNoCapture = [];
     movesCapture = [];
     let currentColor;
     if (step % 2 === 1) currentColor = 'white';
     else currentColor = 'black';
 
-    for (let i = xcoord + 1; i < 8; i++) {
-        if (chessBoard[i][ycoord].includes('none')) {
-            movesNoCapture.push([i, ycoord]);
-        } else if (chessBoard[i][ycoord].includes(currentColor)) {
+    for (let i = xCoord + 1; i < 8; i++) {
+        if (chessBoard[i][yCoord].includes('none')) {
+            movesNoCapture.push([i, yCoord]);
+        } else if (chessBoard[i][yCoord].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([i, ycoord]);
+            movesCapture.push([i, yCoord]);
             break;
         }
     }
 
-    for (let i = xcoord - 1; i >= 0; i--) {
-        if (chessBoard[i][ycoord].includes('none')) {
-            movesNoCapture.push([i, ycoord]);
-        } else if (chessBoard[i][ycoord].includes(currentColor)) {
+    for (let i = xCoord - 1; i >= 0; i--) {
+        if (chessBoard[i][yCoord].includes('none')) {
+            movesNoCapture.push([i, yCoord]);
+        } else if (chessBoard[i][yCoord].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([i, ycoord]);
+            movesCapture.push([i, yCoord]);
             break;
         }
     }
 
-    for (let i = ycoord + 1; i < 8; i++) {
-        if (chessBoard[xcoord][i].includes('none')) {
-            movesNoCapture.push([xcoord, i]);
-        } else if (chessBoard[xcoord][i].includes(currentColor)) {
+    for (let i = yCoord + 1; i < 8; i++) {
+        if (chessBoard[xCoord][i].includes('none')) {
+            movesNoCapture.push([xCoord, i]);
+        } else if (chessBoard[xCoord][i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord, i]);
+            movesCapture.push([xCoord, i]);
             break;
         }
     }
 
-    for (let i = ycoord - 1; i >= 0; i--) {
-        if (chessBoard[xcoord][i].includes('none')) {
-            movesNoCapture.push([xcoord, i]);
-        } else if (chessBoard[xcoord][i].includes(currentColor)) {
+    for (let i = yCoord - 1; i >= 0; i--) {
+        if (chessBoard[xCoord][i].includes('none')) {
+            movesNoCapture.push([xCoord, i]);
+        } else if (chessBoard[xCoord][i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord, i]);
-            break;
-        }
-    }
-
-    for (let i = 1; i < 8; i++) {
-        if (((xcoord + i) > 7) || ((ycoord + i) > 7)) break;
-        if (chessBoard[xcoord + i][ycoord + i].includes('none')) {
-            movesNoCapture.push([xcoord + i, ycoord + i]);
-        } else if (chessBoard[xcoord + i][ycoord + i].includes(currentColor)) {
-            break;
-        } else {
-            movesCapture.push([xcoord + i, ycoord + i]);
+            movesCapture.push([xCoord, i]);
             break;
         }
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord - i) < 0) || ((ycoord - i) < 0)) break;
-        if (chessBoard[xcoord - i][ycoord - i].includes('none')) {
-            movesNoCapture.push([xcoord - i, ycoord - i]);
-        } else if (chessBoard[xcoord - i][ycoord - i].includes(currentColor)) {
+        if (((xCoord + i) > 7) || ((yCoord + i) > 7)) break;
+        if (chessBoard[xCoord + i][yCoord + i].includes('none')) {
+            movesNoCapture.push([xCoord + i, yCoord + i]);
+        } else if (chessBoard[xCoord + i][yCoord + i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord - i, ycoord - i]);
+            movesCapture.push([xCoord + i, yCoord + i]);
             break;
         }
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord + i) > 7) || ((ycoord - i) < 0)) break;
-        if (chessBoard[xcoord + i][ycoord - i].includes('none')) {
-            movesNoCapture.push([xcoord + i, ycoord - i]);
-        } else if (chessBoard[xcoord + i][ycoord - i].includes(currentColor)) {
+        if (((xCoord - i) < 0) || ((yCoord - i) < 0)) break;
+        if (chessBoard[xCoord - i][yCoord - i].includes('none')) {
+            movesNoCapture.push([xCoord - i, yCoord - i]);
+        } else if (chessBoard[xCoord - i][yCoord - i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord + i, ycoord - i]);
+            movesCapture.push([xCoord - i, yCoord - i]);
             break;
         }
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xcoord - i) < 0) || ((ycoord + i) > 8)) break;
-        if (chessBoard[xcoord - i][ycoord + i].includes('none')) {
-            movesNoCapture.push([xcoord - i, ycoord + i]);
-        } else if (chessBoard[xcoord - i][ycoord + i].includes(currentColor)) {
+        if (((xCoord + i) > 7) || ((yCoord - i) < 0)) break;
+        if (chessBoard[xCoord + i][yCoord - i].includes('none')) {
+            movesNoCapture.push([xCoord + i, yCoord - i]);
+        } else if (chessBoard[xCoord + i][yCoord - i].includes(currentColor)) {
             break;
         } else {
-            movesCapture.push([xcoord - i, ycoord + i]);
+            movesCapture.push([xCoord + i, yCoord - i]);
+            break;
+        }
+    }
+
+    for (let i = 1; i < 8; i++) {
+        if (((xCoord - i) < 0) || ((yCoord + i) > 8)) break;
+        if (chessBoard[xCoord - i][yCoord + i].includes('none')) {
+            movesNoCapture.push([xCoord - i, yCoord + i]);
+        } else if (chessBoard[xCoord - i][yCoord + i].includes(currentColor)) {
+            break;
+        } else {
+            movesCapture.push([xCoord - i, yCoord + i]);
             break;
         }
     }
@@ -234,7 +234,7 @@ function getMovesForQueen(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
-function getMovesForKing(xcoord, ycoord, step) {
+function getMovesForKing(xCoord, yCoord, step) {
     movesNoCapture = [];
     movesCapture = [];
     let currentColor;
@@ -242,14 +242,14 @@ function getMovesForKing(xcoord, ycoord, step) {
     else currentColor = 'black';
 
     let allMovesForKing = [
-        [xcoord + 1, ycoord],
-        [xcoord - 1, ycoord],
-        [xcoord, ycoord + 1],
-        [xcoord, ycoord - 1],
-        [xcoord + 1, ycoord + 1],
-        [xcoord - 1, ycoord - 1],
-        [xcoord + 1, ycoord - 1],
-        [xcoord - 1, ycoord + 1]
+        [xCoord + 1, yCoord],
+        [xCoord - 1, yCoord],
+        [xCoord, yCoord + 1],
+        [xCoord, yCoord - 1],
+        [xCoord + 1, yCoord + 1],
+        [xCoord - 1, yCoord - 1],
+        [xCoord + 1, yCoord - 1],
+        [xCoord - 1, yCoord + 1]
     ];
 
     for (let i = 0; i < 8; i++) {
@@ -272,7 +272,7 @@ function getMovesForKing(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
-function getMovesForKnight(xcoord, ycoord, step) {
+function getMovesForKnight(xCoord, yCoord, step) {
     movesNoCapture = [];
     movesCapture = [];
     let currentColor;
@@ -280,15 +280,15 @@ function getMovesForKnight(xcoord, ycoord, step) {
     else currentColor = 'black';
 
     let allMovesForKnight = [
-        [xcoord + 2, ycoord + 1],
-        [xcoord + 2, ycoord - 1],
-        [xcoord - 2, ycoord + 1],
-        [xcoord - 2, ycoord - 1],
+        [xCoord + 2, yCoord + 1],
+        [xCoord + 2, yCoord - 1],
+        [xCoord - 2, yCoord + 1],
+        [xCoord - 2, yCoord - 1],
 
-        [xcoord + 1, ycoord + 2],
-        [xcoord - 1, ycoord + 2],
-        [xcoord + 1, ycoord - 2],
-        [xcoord - 1, ycoord - 2]
+        [xCoord + 1, yCoord + 2],
+        [xCoord - 1, yCoord + 2],
+        [xCoord + 1, yCoord - 2],
+        [xCoord - 1, yCoord - 2]
     ];
 
     for (let i = 0; i < 8; i++) {
@@ -311,7 +311,7 @@ function getMovesForKnight(xcoord, ycoord, step) {
     return movesNoCapture, movesCapture;
 }
 
-function getMovesForPawn (xcoord, ycoord, step) {
+function getMovesForPawn (xCoord, yCoord, step) {
     movesNoCapture = [];
     movesCapture = [];
     let currentColor;
@@ -319,48 +319,94 @@ function getMovesForPawn (xcoord, ycoord, step) {
     else currentColor = 'black';
 
     if (currentColor === 'white') {
-        if (ycoord + 1 <= 7) {
-            if (chessBoard[xcoord][ycoord + 1].includes('none')) {
-                movesNoCapture.push([(xcoord), (ycoord + 1)]);
+        if (yCoord + 1 <= 7) {
+            if (chessBoard[xCoord][yCoord + 1].includes('none')) {
+                movesNoCapture.push([(xCoord), (yCoord + 1)]);
             }
         }
-        if ((ycoord + 2 === 3) && (chessBoard[xcoord][ycoord + 1].includes('none'))) {
-            if (chessBoard[xcoord][ycoord + 2].includes('none')) {
-                movesNoCapture.push([(xcoord), (ycoord + 2)]);
+        if ((yCoord + 2 === 3) && (chessBoard[xCoord][yCoord + 1].includes('none'))) {
+            if (chessBoard[xCoord][yCoord + 2].includes('none')) {
+                movesNoCapture.push([(xCoord), (yCoord + 2)]);
             }
         }
 
-        if (((xcoord + 1) <= 7) && ((ycoord + 1) <= 7)
-            && (chessBoard[xcoord + 1][ycoord + 1].includes('black'))) {
-            movesCapture.push([(xcoord + 1), (ycoord + 1)]);
+        if (((xCoord + 1) <= 7) && ((yCoord + 1) <= 7)
+            && (chessBoard[xCoord + 1][yCoord + 1].includes('black'))) {
+            movesCapture.push([(xCoord + 1), (yCoord + 1)]);
         }
-        if (((xcoord - 1) >= 0) && ((ycoord + 1) <= 7)
-            && (chessBoard[xcoord - 1][ycoord + 1].includes('black'))) {
-            movesCapture.push([(xcoord - 1), (ycoord + 1)]);
+        if (((xCoord - 1) >= 0) && ((yCoord + 1) <= 7)
+            && (chessBoard[xCoord - 1][yCoord + 1].includes('black'))) {
+            movesCapture.push([(xCoord - 1), (yCoord + 1)]);
         }
     }
 
     if (currentColor === 'black') {
-        if (ycoord - 1 >= 0) {
-            if (chessBoard[xcoord][ycoord -1].includes('none')) {
-                movesNoCapture.push([(xcoord), (ycoord - 1)]);
+        if (yCoord - 1 >= 0) {
+            if (chessBoard[xCoord][yCoord -1].includes('none')) {
+                movesNoCapture.push([(xCoord), (yCoord - 1)]);
             }
         }
-        if ((ycoord - 2 === 4) && (chessBoard[xcoord][ycoord -1].includes('none'))) {
-            if (chessBoard[xcoord][ycoord - 2].includes('none')) {
-                movesNoCapture.push([(xcoord), (ycoord - 2)]);
+        if ((yCoord - 2 === 4) && (chessBoard[xCoord][yCoord -1].includes('none'))) {
+            if (chessBoard[xCoord][yCoord - 2].includes('none')) {
+                movesNoCapture.push([(xCoord), (yCoord - 2)]);
             }
         }
 
-        if (((xcoord + 1) <= 7) && ((ycoord - 1) >= 0)
-            && (chessBoard[xcoord + 1][ycoord - 1].includes('white'))) {
-            movesCapture.push([(xcoord + 1), (ycoord - 1)]);
+        if (((xCoord + 1) <= 7) && ((yCoord - 1) >= 0)
+            && (chessBoard[xCoord + 1][yCoord - 1].includes('white'))) {
+            movesCapture.push([(xCoord + 1), (yCoord - 1)]);
         }
-        if (((xcoord - 1) >= 0) && ((ycoord - 1) >= 0)
-            && (chessBoard[xcoord - 1][ycoord - 1].includes('white'))) {
-            movesCapture.push([(xcoord - 1), (ycoord - 1)]);
+        if (((xCoord - 1) >= 0) && ((yCoord - 1) >= 0)
+            && (chessBoard[xCoord - 1][yCoord - 1].includes('white'))) {
+            movesCapture.push([(xCoord - 1), (yCoord - 1)]);
         }
     }
 
     return movesNoCapture, movesCapture;
 }
+
+const sq07 = document.querySelector('.sq07');
+const square = document.querySelectorAll('.square');
+
+sq07.addEventListener('click', function (e) {
+    let clickOnCoords = this.classList[0].split('');
+    clickOnCoords.shift();
+    clickOnCoords.shift();
+    clickOnCoords[0] = Number(clickOnCoords[0]);
+    clickOnCoords[1] = Number(clickOnCoords[1]);
+    console.log(clickOnCoords);
+
+    let currentPiece = [];
+    currentPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][0]);
+    currentPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][1]);
+    console.log(currentPiece);
+
+    switch(currentPiece[1]) {
+        case 'king':
+        getMovesForKing(clickOnCoords[0], clickOnCoords[1], stepNumber);
+        break;
+
+        case 'queen':
+        getMovesForQueen(clickOnCoords[0], clickOnCoords[1], stepNumber);
+        break;
+
+        case 'bishop':
+        getMovesForBishop(clickOnCoords[0], clickOnCoords[1], stepNumber);
+        break;
+
+        case 'knight':
+        getMovesForKnight(clickOnCoords[0], clickOnCoords[1], stepNumber);
+        break;
+    
+        case 'rook':
+        getMovesForRook(clickOnCoords[0], clickOnCoords[1], stepNumber);
+        break;
+    
+        case 'pawn':
+        getMovesForPawn(clickOnCoords[0], clickOnCoords[1], stepNumber);
+        break;
+        default:
+    }
+    console.log(movesNoCapture);
+    console.log(movesCapture);
+});
