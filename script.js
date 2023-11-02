@@ -1,19 +1,19 @@
 let chessBoard = [
-    [["none", "none"], ["black", "non"], ["black", "non"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
-
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "non"], ["none", "none"], ["white", "non"], ["none", "none"]],
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
-    [["none", "none"], ["black", "non"], ["none", "none"], ["none", "none"], ["white", "non"], ["none", "none"], ["none", "none"], ["white", "non"]],
-
-    [["none", "none"], ["none", "none"], ["none", "none"], ["black", "non"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
-
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "non"], ["none", "none"], ["white", "non"], ["none", "none"]],
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "non"], ["none", "none"], ["none", "none"]]
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]]
 ];
 
 let stepNumber = 1;
@@ -360,12 +360,3 @@ function getMovesForPawn (xcoord, ycoord, step) {
 
     return movesNoCapture, movesCapture;
 }
-
-// getMovesForRook(3, 4, stepNumber);
-// getMovesForBishop(3, 4, stepNumber);
-// getMovesForQueen(3, 4, stepNumber);
-// getMovesForKing(3, 4, stepNumber);
-// getMovesForKnight(3, 5, stepNumber);
-// getMovesForPawn (0, 1, stepNumber);
-console.log(movesNoCapture);
-console.log(movesCapture);

@@ -75,20 +75,18 @@
     align-items: center;
 }
 
-.a-letter {
+.column-label-letter-a {
     border-left: 0px;
 }
 
-.h-letter {
+.column-label-letter-h {
     border-right: 0px;
 }
 
 .column-label,
 .column-label-letter,
 .row-label,
-.row-label-number,
-.row-label-empty-up,
-.row-label-empty-down {
+.row-label-number {
     border-color: grey;
     background-color: lightgrey;
 }
@@ -104,6 +102,31 @@
     height: 100px;
 }
 
+.image {
+    width: 100px;
+    height: 100px;
+}
+
+.whitesquare {
+    background-color: white;
+}
+
 .blacksquare {
-    background-color: gray;
+    background-color: grey;
+}
+
+.move-on-white-square {
+    background-color: lightgreen;
+}
+
+.move-on-black-square {
+    background-color: darkgreen;
+}
+
+.capture-on-white-square {
+    background-color: lightpink;
+}
+
+.capture-on-black-square {
+    background-color: darkred;
 }
