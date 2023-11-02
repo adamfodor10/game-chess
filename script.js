@@ -1,11 +1,11 @@
 let chessBoard = [
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "king"]],
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "king"], ["black", "king"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["white", "queen"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
     [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
 
@@ -365,48 +365,83 @@ function getMovesForPawn (xCoord, yCoord, step) {
     return movesNoCapture, movesCapture;
 }
 
-const sq07 = document.querySelector('.sq07');
 const square = document.querySelectorAll('.square');
 
-sq07.addEventListener('click', function (e) {
-    let clickOnCoords = this.classList[0].split('');
-    clickOnCoords.shift();
-    clickOnCoords.shift();
-    clickOnCoords[0] = Number(clickOnCoords[0]);
-    clickOnCoords[1] = Number(clickOnCoords[1]);
-    console.log(clickOnCoords);
+square.forEach((individualSquare) => {
+    individualSquare.addEventListener('click', function (e) {
+        let clickOnCoords = this.classList[0].split('');
+        clickOnCoords.shift();
+        clickOnCoords.shift();
+        clickOnCoords[0] = Number(clickOnCoords[0]);
+        clickOnCoords[1] = Number(clickOnCoords[1]);
+        console.log(clickOnCoords);
 
-    let currentPiece = [];
-    currentPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][0]);
-    currentPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][1]);
-    console.log(currentPiece);
+        let currentPiece = [];
+        currentPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][0]);
+        currentPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][1]);
+        console.log(currentPiece);
 
-    switch(currentPiece[1]) {
-        case 'king':
-        getMovesForKing(clickOnCoords[0], clickOnCoords[1], stepNumber);
-        break;
+        switch(currentPiece[1]) {
+            case 'king':
+            getMovesForKing(clickOnCoords[0], clickOnCoords[1], stepNumber);
+            break;
 
-        case 'queen':
-        getMovesForQueen(clickOnCoords[0], clickOnCoords[1], stepNumber);
-        break;
+            case 'queen':
+            getMovesForQueen(clickOnCoords[0], clickOnCoords[1], stepNumber);
+            break;
 
-        case 'bishop':
-        getMovesForBishop(clickOnCoords[0], clickOnCoords[1], stepNumber);
-        break;
+            case 'bishop':
+            getMovesForBishop(clickOnCoords[0], clickOnCoords[1], stepNumber);
+            break;
 
-        case 'knight':
-        getMovesForKnight(clickOnCoords[0], clickOnCoords[1], stepNumber);
-        break;
-    
-        case 'rook':
-        getMovesForRook(clickOnCoords[0], clickOnCoords[1], stepNumber);
-        break;
-    
-        case 'pawn':
-        getMovesForPawn(clickOnCoords[0], clickOnCoords[1], stepNumber);
-        break;
-        default:
-    }
-    console.log(movesNoCapture);
-    console.log(movesCapture);
+            case 'knight':
+            getMovesForKnight(clickOnCoords[0], clickOnCoords[1], stepNumber);
+            break;
+        
+            case 'rook':
+            getMovesForRook(clickOnCoords[0], clickOnCoords[1], stepNumber);
+            break;
+        
+            case 'pawn':
+            getMovesForPawn(clickOnCoords[0], clickOnCoords[1], stepNumber);
+            break;
+            default:
+        }
+        console.log(movesNoCapture);
+        console.log(movesCapture);
+
+        square.forEach((currentSquare) => {
+            let currentSquareCoords = currentSquare.classList[0].split('');
+            currentSquareCoords.shift();
+            currentSquareCoords.shift();
+            currentSquareCoords[0] = Number(currentSquareCoords[0]);
+            currentSquareCoords[1] = Number(currentSquareCoords[1]);
+
+            for (let i = 0; i < movesNoCapture.length; i++) {
+                if ((Number(currentSquareCoords[0]) === Number(movesNoCapture[i][0]))
+                && (Number(currentSquareCoords[1]) === Number(movesNoCapture[i][1]))) {
+                    console.log(currentSquareCoords);
+                    if (currentSquare.classList.contains('white-square')) {
+                        currentSquare.classList.toggle('move-on-white-square');
+                    };
+                    if (currentSquare.classList.contains('black-square')) {
+                        currentSquare.classList.toggle('move-on-black-square');
+                    }
+            }
+            }
+
+            for (let i = 0; i < movesCapture.length; i++) {
+                if ((Number(currentSquareCoords[0]) === Number(movesCapture[i][0]))
+                && (Number(currentSquareCoords[1]) === Number(movesCapture[i][1]))) {
+                    console.log(currentSquareCoords);
+                    if (currentSquare.classList.contains('white-square')) {
+                        currentSquare.classList.toggle('capture-on-white-square');
+                    };
+                    if (currentSquare.classList.contains('black-square')) {
+                        currentSquare.classList.toggle('capture-on-black-square');
+                    }
+            }
+            }
+        });
+    })
 });
