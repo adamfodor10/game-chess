@@ -1,19 +1,19 @@
 let chessBoard = [
-    [["white", "king"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "rook"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "rook"]],
 
-    [["black", "king"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "knight"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "knight"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "bishop"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "bishop"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "queen"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "queen"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "king"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "king"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "bishop"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "bishop"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]],
+    [["white", "knight"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "knight"]],
 
-    [["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"]]
+    [["white", "rook"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "rook"]]
 ];
 
 function getMovesForRook(xCoord, yCoord, stepNumber) {
@@ -114,7 +114,7 @@ function getMovesForBishop(xCoord, yCoord, stepNumber) {
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xCoord - i) < 0) || ((yCoord + i) > 8)) break;
+        if (((xCoord - i) < 0) || ((yCoord + i) > 7)) break;
         if (chessBoard[xCoord - i][yCoord + i].includes('none')) {
             movesNoCapture.push([xCoord - i, yCoord + i]);
         } else if (chessBoard[xCoord - i][yCoord + i].includes(currentColor)) {
@@ -216,7 +216,7 @@ function getMovesForQueen(xCoord, yCoord, stepNumber) {
     }
 
     for (let i = 1; i < 8; i++) {
-        if (((xCoord - i) < 0) || ((yCoord + i) > 8)) break;
+        if (((xCoord - i) < 0) || ((yCoord + i) > 7)) break;
         if (chessBoard[xCoord - i][yCoord + i].includes('none')) {
             movesNoCapture.push([xCoord - i, yCoord + i]);
         } else if (chessBoard[xCoord - i][yCoord + i].includes(currentColor)) {
@@ -366,7 +366,7 @@ let movesNoCapture = [];
 let movesCapture = [];
 let pieceToMove = [];
 let pieceToMoveCoords = [];
-let imageToMove;
+let pieceToMoveImage;
 
 const square = document.querySelectorAll('.square');
 
@@ -383,12 +383,12 @@ square.forEach((individualSquare) => {
         clickOnCoords.shift();
         clickOnCoords[0] = Number(clickOnCoords[0]);
         clickOnCoords[1] = Number(clickOnCoords[1]);
-        console.log(clickOnCoords);
+        // console.log(clickOnCoords);
 
         let clickOnPiece = [];
         clickOnPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][0]);
         clickOnPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][1]);
-        console.log(clickOnPiece);
+        // console.log(clickOnPiece);
 
         if ((individualSquare.classList.contains('move-on-white-square'))
         || (individualSquare.classList.contains('move-on-black-square')) 
@@ -401,8 +401,10 @@ square.forEach((individualSquare) => {
 
             chessBoard[clickOnCoords[0]][clickOnCoords[1]] = pieceToMove;
             chessBoard[pieceToMoveCoords[0]][pieceToMoveCoords[1]] = ['none', 'none'];
-            individualSquare.removeChild(individualSquare.firstChild);
-            individualSquare.appendChild(imageToMove);
+            if (individualSquare.firstChild) {
+                individualSquare.removeChild(individualSquare.firstChild);
+            }
+            individualSquare.appendChild(pieceToMoveImage);
             stepNumber++;
         } else {
             square.forEach((individualSquare) => {individualSquare.classList.remove('move-on-white-square')});
@@ -412,7 +414,7 @@ square.forEach((individualSquare) => {
 
             pieceToMove = clickOnPiece;
             pieceToMoveCoords = clickOnCoords;
-            imageToMove = individualSquare.firstElementChild;
+            pieceToMoveImage = individualSquare.firstElementChild;
 
             if (clickOnPiece[0] === currentColor) {
                 switch(clickOnPiece[1]) {
@@ -442,8 +444,8 @@ square.forEach((individualSquare) => {
                     default:
                 }
             }
-                console.log(movesNoCapture);
-                console.log(movesCapture);
+                // console.log(movesNoCapture);
+                // console.log(movesCapture);
 
             square.forEach((individualSquare) => {
                 let currentSquareCoords = individualSquare.classList[0].split('');
@@ -455,7 +457,6 @@ square.forEach((individualSquare) => {
                 for (let i = 0; i < movesNoCapture.length; i++) {
                     if ((Number(currentSquareCoords[0]) === Number(movesNoCapture[i][0]))
                     && (Number(currentSquareCoords[1]) === Number(movesNoCapture[i][1]))) {
-                        console.log(currentSquareCoords);
                         if (individualSquare.classList.contains('white-square')) {
                             individualSquare.classList.add('move-on-white-square');
                         };
@@ -468,7 +469,6 @@ square.forEach((individualSquare) => {
                 for (let i = 0; i < movesCapture.length; i++) {
                     if ((Number(currentSquareCoords[0]) === Number(movesCapture[i][0]))
                     && (Number(currentSquareCoords[1]) === Number(movesCapture[i][1]))) {
-                        console.log(currentSquareCoords);
                         if (individualSquare.classList.contains('white-square')) {
                             individualSquare.classList.add('capture-on-white-square');
                         };
