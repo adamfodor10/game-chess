@@ -18,7 +18,7 @@
 }
 
 .row-label {
-    flex-basis: 40px;
+    min-width: 40px;
     border: 2px solid;
 
     display: flex;
