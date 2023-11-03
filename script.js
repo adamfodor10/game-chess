@@ -323,6 +323,9 @@ let pieceToMoveName = [];
 let pieceToMoveCoords = [];
 let pieceToMoveImage;
 
+const moveAudio = document.querySelector('.move-audio');
+const captureAudio = document.querySelector('.capture-audio');
+
 const square = document.querySelectorAll('.square');
 
 square.forEach((individualSquare) => {
@@ -355,7 +358,10 @@ square.forEach((individualSquare) => {
             chessBoard[clickOnCoords[0]][clickOnCoords[1]] = pieceToMoveName;
             chessBoard[pieceToMoveCoords[0]][pieceToMoveCoords[1]] = ['none', 'none'];
             if (individualSquare.firstElementChild) {
+                captureAudio.play();
                 individualSquare.removeChild(individualSquare.firstElementChild);
+            } else {
+                moveAudio.play();
             }
             individualSquare.appendChild(pieceToMoveImage);
             stepNumber++;
