@@ -1,7 +1,5 @@
 # game-chess
-In this project I am building a chess game using HTML, CSS and JavaScript.
-
-The game can be played by 2 people, taking turns.
+In this project I am building a chess game which can be played by 2 people taking turns.
 
 The following chess rules have not yet been implemented in the project:
 
