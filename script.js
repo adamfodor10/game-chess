@@ -1,19 +1,19 @@
 let chessBoard = [
-    [["white", "rook"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "rook"]],
+    [['white', 'rook'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'rook']],
 
-    [["white", "knight"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "knight"]],
+    [['white', 'knight'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'knight']],
 
-    [["white", "bishop"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "bishop"]],
+    [['white', 'bishop'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'bishop']],
 
-    [["white", "queen"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "queen"]],
+    [['white', 'queen'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'queen']],
 
-    [["white", "king"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "king"]],
+    [['white', 'king'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'king']],
 
-    [["white", "bishop"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "bishop"]],
+    [['white', 'bishop'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'bishop']],
 
-    [["white", "knight"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "knight"]],
+    [['white', 'knight'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'knight']],
 
-    [["white", "rook"], ["white", "pawn"], ["none", "none"], ["none", "none"], ["none", "none"], ["none", "none"], ["black", "pawn"], ["black", "rook"]]
+    [['white', 'rook'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'rook']]
 ];
 
 function getMovesForRook(xCoord, yCoord) {
