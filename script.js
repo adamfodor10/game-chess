@@ -326,115 +326,116 @@ let pieceToMoveImage;
 const moveAudio = document.querySelector('.move-audio');
 const captureAudio = document.querySelector('.capture-audio');
 
-const square = document.querySelectorAll('.square');
+const squares = document.querySelectorAll('.square');
 
-square.forEach((individualSquare) => {
-    individualSquare.addEventListener('click', () => {
+squares.forEach((square) => {
+    square.addEventListener('click', () => {
         if (stepNumber % 2 === 1) currentColor = 'white';
         else currentColor = 'black';
 
         movesNoCapture = [];
         movesCapture = [];
 
-        let clickOnCoords = individualSquare.classList[0].split('');
-        clickOnCoords.shift();
-        clickOnCoords.shift();
-        clickOnCoords[0] = Number(clickOnCoords[0]);
-        clickOnCoords[1] = Number(clickOnCoords[1]);
+        let squareClickedOnCoords = square.classList[0].split('');
+        squareClickedOnCoords.shift();
+        squareClickedOnCoords.shift();
+        squareClickedOnCoords[0] = Number(squareClickedOnCoords[0]);
+        squareClickedOnCoords[1] = Number(squareClickedOnCoords[1]);
 
-        let clickOnPiece = [];
-        clickOnPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][0]);
-        clickOnPiece.push(chessBoard[(clickOnCoords[0])][(clickOnCoords[1])][1]);
+        let pieceClickedOnName = [];
+        pieceClickedOnName.push(chessBoard[(squareClickedOnCoords[0])][(squareClickedOnCoords[1])][0]);
+        pieceClickedOnName.push(chessBoard[(squareClickedOnCoords[0])][(squareClickedOnCoords[1])][1]);
 
-        if ((individualSquare.classList.contains('move-on-white-square'))
-        || (individualSquare.classList.contains('move-on-black-square')) 
-        || (individualSquare.classList.contains('capture-on-white-square')) 
-        || (individualSquare.classList.contains('capture-on-black-square'))) {
-            square.forEach((individualSquare) => {individualSquare.classList.remove('move-on-white-square')});
-            square.forEach((individualSquare) => {individualSquare.classList.remove('move-on-black-square')});
-            square.forEach((individualSquare) => {individualSquare.classList.remove('capture-on-white-square')});
-            square.forEach((individualSquare) => {individualSquare.classList.remove('capture-on-black-square')});
+        if (!((square.classList.contains('move-on-white-square'))
+        || (square.classList.contains('move-on-black-square')) 
+        || (square.classList.contains('capture-on-white-square')) 
+        || (square.classList.contains('capture-on-black-square')))) {
+            squares.forEach((square) => {square.classList.remove('move-on-white-square')});
+            squares.forEach((square) => {square.classList.remove('move-on-black-square')});
+            squares.forEach((square) => {square.classList.remove('capture-on-white-square')});
+            squares.forEach((square) => {square.classList.remove('capture-on-black-square')});
 
-            chessBoard[clickOnCoords[0]][clickOnCoords[1]] = pieceToMoveName;
-            chessBoard[pieceToMoveCoords[0]][pieceToMoveCoords[1]] = ['none', 'none'];
-            if (individualSquare.firstElementChild) {
-                captureAudio.play();
-                individualSquare.removeChild(individualSquare.firstElementChild);
-            } else {
-                moveAudio.play();
-            }
-            individualSquare.appendChild(pieceToMoveImage);
-            stepNumber++;
-        } else {
-            square.forEach((individualSquare) => {individualSquare.classList.remove('move-on-white-square')});
-            square.forEach((individualSquare) => {individualSquare.classList.remove('move-on-black-square')});
-            square.forEach((individualSquare) => {individualSquare.classList.remove('capture-on-white-square')});
-            square.forEach((individualSquare) => {individualSquare.classList.remove('capture-on-black-square')});
+            pieceToMoveName = pieceClickedOnName;
+            pieceToMoveCoords = squareClickedOnCoords;
+            pieceToMoveImage = square.firstElementChild;
 
-            pieceToMoveName = clickOnPiece;
-            pieceToMoveCoords = clickOnCoords;
-            pieceToMoveImage = individualSquare.firstElementChild;
-
-            if (clickOnPiece[0] === currentColor) {
-                switch(clickOnPiece[1]) {
+            if (pieceClickedOnName[0] === currentColor) {
+                switch(pieceClickedOnName[1]) {
                     case 'king':
-                    getMovesForKing(clickOnCoords[0], clickOnCoords[1]);
+                    getMovesForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'queen':
-                    getMovesForQueen(clickOnCoords[0], clickOnCoords[1]);
+                    getMovesForQueen(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'bishop':
-                    getMovesForBishop(clickOnCoords[0], clickOnCoords[1]);
+                    getMovesForBishop(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'knight':
-                    getMovesForKnight(clickOnCoords[0], clickOnCoords[1]);
+                    getMovesForKnight(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 
                     case 'rook':
-                    getMovesForRook(clickOnCoords[0], clickOnCoords[1]);
+                    getMovesForRook(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 
                     case 'pawn':
-                    getMovesForPawn(clickOnCoords[0], clickOnCoords[1]);
+                    getMovesForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                     default:
                 }
             }
 
-            square.forEach((individualSquare) => {
-                let individualSquareCoords = individualSquare.classList[0].split('');
-                individualSquareCoords.shift();
-                individualSquareCoords.shift();
-                individualSquareCoords[0] = Number(individualSquareCoords[0]);
-                individualSquareCoords[1] = Number(individualSquareCoords[1]);
+            squares.forEach((square) => {
+                let squareCoords = square.classList[0].split('');
+                squareCoords.shift();
+                squareCoords.shift();
+                squareCoords[0] = Number(squareCoords[0]);
+                squareCoords[1] = Number(squareCoords[1]);
 
                 for (let i = 0; i < movesNoCapture.length; i++) {
-                    if ((Number(individualSquareCoords[0]) === Number(movesNoCapture[i][0]))
-                    && (Number(individualSquareCoords[1]) === Number(movesNoCapture[i][1]))) {
-                        if (individualSquare.classList.contains('white-square')) {
-                            individualSquare.classList.add('move-on-white-square');
+                    if ((Number(squareCoords[0]) === Number(movesNoCapture[i][0]))
+                    && (Number(squareCoords[1]) === Number(movesNoCapture[i][1]))) {
+                        if (square.classList.contains('white-square')) {
+                            square.classList.add('move-on-white-square');
                         };
-                        if (individualSquare.classList.contains('black-square')) {
-                            individualSquare.classList.add('move-on-black-square');
+                        if (square.classList.contains('black-square')) {
+                            square.classList.add('move-on-black-square');
                         }
                 }
                 }
 
                 for (let i = 0; i < movesCapture.length; i++) {
-                    if ((Number(individualSquareCoords[0]) === Number(movesCapture[i][0]))
-                    && (Number(individualSquareCoords[1]) === Number(movesCapture[i][1]))) {
-                        if (individualSquare.classList.contains('white-square')) {
-                            individualSquare.classList.add('capture-on-white-square');
+                    if ((Number(squareCoords[0]) === Number(movesCapture[i][0]))
+                    && (Number(squareCoords[1]) === Number(movesCapture[i][1]))) {
+                        if (square.classList.contains('white-square')) {
+                            square.classList.add('capture-on-white-square');
                         };
-                        if (individualSquare.classList.contains('black-square')) {
-                            individualSquare.classList.add('capture-on-black-square');
+                        if (square.classList.contains('black-square')) {
+                            square.classList.add('capture-on-black-square');
                         }
                 }
                 }
             });
+
+        } else {
+            squares.forEach((square) => {square.classList.remove('move-on-white-square')});
+            squares.forEach((square) => {square.classList.remove('move-on-black-square')});
+            squares.forEach((square) => {square.classList.remove('capture-on-white-square')});
+            squares.forEach((square) => {square.classList.remove('capture-on-black-square')});
+
+            chessBoard[squareClickedOnCoords[0]][squareClickedOnCoords[1]] = pieceToMoveName;
+            chessBoard[pieceToMoveCoords[0]][pieceToMoveCoords[1]] = ['none', 'none'];
+            if (square.firstElementChild) {
+                captureAudio.play();
+                square.removeChild(square.firstElementChild);
+            } else {
+                moveAudio.play();
+            }
+            square.appendChild(pieceToMoveImage);
+            stepNumber++;
         }
     })
 });
