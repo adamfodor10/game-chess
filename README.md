@@ -1,7 +1,7 @@
 # Chess Game
 In this project I am building a chess game which can be played by 2 people taking turns. The core of the project is the chess logic which is implemented by JavaScript fundamentals and the interactivity of the game which is achieved mainly by event listeners and DOM manipulation. This project has not been finished yet.
 
-## The following chess rules have not been implemented in the project yet:
+## The below chess rules have not been implemented yet:
 - Check
 - Checkmate
 - Draw by stalemate
@@ -22,3 +22,7 @@ In this project I am building a chess game which can be played by 2 people takin
 
 ## Credit for the sounds goes to:
 - [lichess.org](https://github.com/lichess-org/lila/tree/master) (sounds are located in the ./public/sound folder)
+
+## Screenshots of the game:
+![Screenshot of chess starting position](./images/screenshot-one.png)
+![Screenshot of chess mid-game position](./images/screenshot-two.png)
