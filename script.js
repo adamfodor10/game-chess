@@ -18,7 +18,7 @@ let chessBoard = [
 
 //These functions calculate all legal move and capture coordinates for the given piece
 //and store them in the moveCoords and captureCoords arrays
-function getMovesAndCaptureCoordsForRook(xCoord, yCoord) {
+function getMoveAndCaptureCoordsForRook(xCoord, yCoord) {
     for (let i = xCoord + 1; i < 8; i++) {
         if (chessBoard[i][yCoord].includes('none')) {
             moveCoords.push([i, yCoord]);
@@ -64,7 +64,7 @@ function getMovesAndCaptureCoordsForRook(xCoord, yCoord) {
     }
 }
 
-function getMovesAndCaptureCoordsForBishop(xCoord, yCoord) {
+function getMoveAndCaptureCoordsForBishop(xCoord, yCoord) {
     for (let i = 1; i < 8; i++) {
         if (((xCoord + i) > 7) || ((yCoord + i) > 7)) break;
         if (chessBoard[xCoord + i][yCoord + i].includes('none')) {
@@ -114,7 +114,7 @@ function getMovesAndCaptureCoordsForBishop(xCoord, yCoord) {
     }
 }
 
-function getMovesAndCaptureCoordsForQueen(xCoord, yCoord) {
+function getMoveAndCaptureCoordsForQueen(xCoord, yCoord) {
     for (let i = xCoord + 1; i < 8; i++) {
         if (chessBoard[i][yCoord].includes('none')) {
             moveCoords.push([i, yCoord]);
@@ -208,7 +208,7 @@ function getMovesAndCaptureCoordsForQueen(xCoord, yCoord) {
     }
 }
 
-function getMovesAndCaptureCoordsForKing(xCoord, yCoord) {
+function getMoveAndCaptureCoordsForKing(xCoord, yCoord) {
     let allMovesForKing = [
         [xCoord + 1, yCoord],
         [xCoord - 1, yCoord],
@@ -238,7 +238,7 @@ function getMovesAndCaptureCoordsForKing(xCoord, yCoord) {
     }
 }
 
-function getMovesAndCaptureCoordsForKnight(xCoord, yCoord) {
+function getMoveAndCaptureCoordsForKnight(xCoord, yCoord) {
     let allMovesForKnight = [
         [xCoord + 2, yCoord + 1],
         [xCoord + 2, yCoord - 1],
@@ -269,7 +269,7 @@ function getMovesAndCaptureCoordsForKnight(xCoord, yCoord) {
     }
 }
 
-function getMovesAndCaptureCoordsForPawn(xCoord, yCoord) {
+function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
     if (currentColor === 'white') {
         if (yCoord + 1 <= 7) {
             if (chessBoard[xCoord][yCoord + 1].includes('none')) {
@@ -348,7 +348,7 @@ squares.forEach((square) => {
         pieceClickedOnName.push(chessBoard[(squareClickedOnCoords[0])][(squareClickedOnCoords[1])][0]);
         pieceClickedOnName.push(chessBoard[(squareClickedOnCoords[0])][(squareClickedOnCoords[1])][1]);
 
-        //First click: the piece what the player wants to move
+        //First click (the piece what the player wants to move)
         if (!((square.classList.contains('move-on-white-square'))
         || (square.classList.contains('move-on-black-square')) 
         || (square.classList.contains('capture-on-white-square')) 
@@ -358,7 +358,7 @@ squares.forEach((square) => {
             squares.forEach((square) => {square.classList.remove('capture-on-white-square')});
             squares.forEach((square) => {square.classList.remove('capture-on-black-square')});
 
-            //Store the information of the current click event to use it during the next click event
+            //Store the information of the first click to use it during the second click
             pieceToMoveName = pieceClickedOnName;
             pieceToMoveCoords = squareClickedOnCoords;
             pieceToMoveImage = square.firstElementChild;
@@ -367,27 +367,27 @@ squares.forEach((square) => {
             if (pieceClickedOnName[0] === currentColor) {
                 switch(pieceClickedOnName[1]) {
                     case 'king':
-                    getMovesAndCaptureCoordsForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    getMoveAndCaptureCoordsForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'queen':
-                    getMovesAndCaptureCoordsForQueen(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    getMoveAndCaptureCoordsForQueen(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'bishop':
-                    getMovesAndCaptureCoordsForBishop(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    getMoveAndCaptureCoordsForBishop(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'knight':
-                    getMovesAndCaptureCoordsForKnight(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    getMoveAndCaptureCoordsForKnight(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 
                     case 'rook':
-                    getMovesAndCaptureCoordsForRook(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    getMoveAndCaptureCoordsForRook(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 
                     case 'pawn':
-                    getMovesAndCaptureCoordsForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    getMoveAndCaptureCoordsForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                     default:
                 }
@@ -426,7 +426,7 @@ squares.forEach((square) => {
                 }
             });
 
-        //Second click: the square where the player wants to move the piece to
+        //Second click (the square where the player wants to move the piece to)
         } else {
             squares.forEach((square) => {square.classList.remove('move-on-white-square')});
             squares.forEach((square) => {square.classList.remove('move-on-black-square')});
