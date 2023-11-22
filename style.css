@@ -60,7 +60,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
+}
 
 .chess-board-container {
     margin: 40px 0px;
