@@ -1,5 +1,6 @@
 # Chess Game
 In this project I am building a chess game which can be played by 2 people taking turns. The core of the project is the chess logic which is implemented by JavaScript fundamentals and the interactivity of the game which is achieved mainly by event listeners and DOM manipulation. This project has not been finished yet.
+Check out the project at: https://adamfodor10.github.io/game-chess/
 
 ## Chess rules not yet implemented:
 - Check
