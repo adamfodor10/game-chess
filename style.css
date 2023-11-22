@@ -54,6 +54,14 @@
     box-sizing: border-box;
 }
 
+body {
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
 .chess-board-container {
     margin: 40px 0px;
 
