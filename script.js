@@ -22,7 +22,7 @@ let chessBoard = [
 // Move is a step without eliminating an enemy piece
 // Capture is a step with eliminating an enemy piece
 let stepNumber = 1;
-let currentColor;
+let currentColor = 'white';
 let moveCoords = [];
 let captureCoords = [];
 
@@ -31,52 +31,74 @@ let pieceToMoveName = [];
 let pieceToMoveCoords = [];
 let pieceToMoveImage;
 
-// These functions calculate all legal move and capture coordinates for the given piece
-// and store them in the moveCoords and captureCoords arrays
-function getMoveAndCaptureCoordsForRook(xCoord, yCoord) {
+// getMoveCoordsFor... functions calculate all legal move coordinates for the given piece
+// getCaptureCoordsFor... functions calculate all legal capture coordinates for the given piece
+function getMoveCoordsForRook(xCoord, yCoord) {
+    let moveCoords = [];
     for (let i = xCoord + 1; i < 8; i++) {
         if (chessBoard[i][yCoord].includes('none')) {
             moveCoords.push([i, yCoord]);
-        } else if (chessBoard[i][yCoord].includes(currentColor)) {
-            break;
-        } else {
+        } else break;
+    }
+
+    for (let i = xCoord - 1; i >= 0; i--) {
+        if (chessBoard[i][yCoord].includes('none')) {
+            moveCoords.push([i, yCoord]);
+        } else break;
+        }
+
+    for (let i = yCoord + 1; i < 8; i++) {
+        if (chessBoard[xCoord][i].includes('none')) {
+            moveCoords.push([xCoord, i]);
+        } else break;
+    }
+
+    for (let i = yCoord - 1; i >= 0; i--) {
+        if (chessBoard[xCoord][i].includes('none')) {
+            moveCoords.push([xCoord, i]);
+        } else break; 
+    }
+    return moveCoords;
+}
+
+function getCaptureCoordsForRook(xCoord, yCoord) {
+    let captureCoords = [];
+    for (let i = xCoord + 1; i < 8; i++) {
+        if (chessBoard[i][yCoord].includes('none')) continue;
+        else if (chessBoard[i][yCoord].includes(currentColor)) break;
+        else {
             captureCoords.push([i, yCoord]);
             break;
         }
     }
 
     for (let i = xCoord - 1; i >= 0; i--) {
-        if (chessBoard[i][yCoord].includes('none')) {
-            moveCoords.push([i, yCoord]);
-        } else if (chessBoard[i][yCoord].includes(currentColor)) {
-            break;
-        } else {
+        if (chessBoard[i][yCoord].includes('none')) continue;
+        else if (chessBoard[i][yCoord].includes(currentColor)) break;
+        else {
             captureCoords.push([i, yCoord]);
             break;
         }
     }
 
     for (let i = yCoord + 1; i < 8; i++) {
-        if (chessBoard[xCoord][i].includes('none')) {
-            moveCoords.push([xCoord, i]);
-        } else if (chessBoard[xCoord][i].includes(currentColor)) {
-            break;
-        } else {
+        if (chessBoard[xCoord][i].includes('none')) continue;
+        else if (chessBoard[xCoord][i].includes(currentColor)) break;
+        else {
             captureCoords.push([xCoord, i]);
             break;
         }
     }
 
     for (let i = yCoord - 1; i >= 0; i--) {
-        if (chessBoard[xCoord][i].includes('none')) {
-            moveCoords.push([xCoord, i]);
-        } else if (chessBoard[xCoord][i].includes(currentColor)) {
-            break;
-        } else {
+        if (chessBoard[xCoord][i].includes('none')) continue;
+        else if (chessBoard[xCoord][i].includes(currentColor)) break;
+        else {
             captureCoords.push([xCoord, i]);
             break;
         }
     }
+    return captureCoords;
 }
 
 function getMoveAndCaptureCoordsForBishop(xCoord, yCoord) {
@@ -341,9 +363,6 @@ squares.forEach((square) => {
     square.addEventListener('click', () => {
         currentColor = setCurrentColor(stepNumber);
 
-        moveCoords = [];
-        captureCoords = [];
-
         let squareClickedOnCoords = square.classList[0].split('');
         squareClickedOnCoords.shift();
         squareClickedOnCoords.shift();
@@ -389,14 +408,17 @@ squares.forEach((square) => {
                     break;
                 
                     case 'rook':
-                    getMoveAndCaptureCoordsForRook(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    moveCoords = getMoveCoordsForRook(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    captureCoords = getCaptureCoordsForRook(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 
                     case 'pawn':
                     getMoveAndCaptureCoordsForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
-                    default:
                 }
+            } else {
+                moveCoords = [];
+                captureCoords = [];
             }
 
             // Change the background color of the squares in the moveCoords and captureCoords arrays
