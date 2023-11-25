@@ -374,7 +374,8 @@ function getCaptureCoordsForKing(xCoord, yCoord) {
     return captureCoords;
 }
 
-function getMoveAndCaptureCoordsForKnight(xCoord, yCoord) {
+function getMoveCoordsForKnight(xCoord, yCoord) {
+    let moveCoords = [];
     let allMovesForKnight = [
         [xCoord + 2, yCoord + 1],
         [xCoord + 2, yCoord - 1],
@@ -391,18 +392,44 @@ function getMoveAndCaptureCoordsForKnight(xCoord, yCoord) {
         if ((allMovesForKnight[i][0] > 7)
         || (allMovesForKnight[i][0] < 0)
         || (allMovesForKnight[i][1] > 7)
-        || (allMovesForKnight[i][1] < 0)) {
-            continue;
-        } else {
+        || (allMovesForKnight[i][1] < 0)) continue;
+        else {
             if (chessBoard[allMovesForKnight[i][0]][allMovesForKnight[i][1]].includes('none')) {
                 moveCoords.push([(allMovesForKnight[i][0]), (allMovesForKnight[i][1])]);
-            } else if (chessBoard[allMovesForKnight[i][0]][allMovesForKnight[i][1]].includes(currentColor)) {
-                continue;
-            } else {
+            } else continue;
+        }
+    }
+    return moveCoords;
+}
+
+function getCaptureCoordsForKnight(xCoord, yCoord) {
+    let captureCoords = [];
+    let allMovesForKnight = [
+        [xCoord + 2, yCoord + 1],
+        [xCoord + 2, yCoord - 1],
+        [xCoord - 2, yCoord + 1],
+        [xCoord - 2, yCoord - 1],
+
+        [xCoord + 1, yCoord + 2],
+        [xCoord - 1, yCoord + 2],
+        [xCoord + 1, yCoord - 2],
+        [xCoord - 1, yCoord - 2]
+    ];
+
+    for (let i = 0; i < 8; i++) {
+        if ((allMovesForKnight[i][0] > 7)
+        || (allMovesForKnight[i][0] < 0)
+        || (allMovesForKnight[i][1] > 7)
+        || (allMovesForKnight[i][1] < 0)) continue;
+        else {
+            if (chessBoard[allMovesForKnight[i][0]][allMovesForKnight[i][1]].includes('none')) continue;
+            else if (chessBoard[allMovesForKnight[i][0]][allMovesForKnight[i][1]].includes(currentColor)) continue;
+            else {
                 captureCoords.push([(allMovesForKnight[i][0]), (allMovesForKnight[i][1])]);
             }
         }
     }
+    return captureCoords;
 }
 
 function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
@@ -501,7 +528,8 @@ squares.forEach((square) => {
                     break;
 
                     case 'knight':
-                    getMoveAndCaptureCoordsForKnight(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    moveCoords = getMoveCoordsForKnight(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    captureCoords = getCaptureCoordsForKnight(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 
                     case 'rook':
