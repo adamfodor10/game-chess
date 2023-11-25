@@ -318,7 +318,8 @@ function getCaptureCoordsForQueen(xCoord, yCoord) {
     return captureCoords;
 }
 
-function getMoveAndCaptureCoordsForKing(xCoord, yCoord) {
+function getMoveCoordsForKing(xCoord, yCoord) {
+    let moveCoords = [];
     let allMovesForKing = [
         [xCoord + 1, yCoord],
         [xCoord - 1, yCoord],
@@ -334,18 +335,43 @@ function getMoveAndCaptureCoordsForKing(xCoord, yCoord) {
         if ((allMovesForKing[i][0] > 7)
         || (allMovesForKing[i][0] < 0)
         || (allMovesForKing[i][1] > 7)
-        || (allMovesForKing[i][1] < 0)) {
-            continue;
-        } else {
+        || (allMovesForKing[i][1] < 0)) continue;
+        else {
             if (chessBoard[allMovesForKing[i][0]][allMovesForKing[i][1]].includes('none')) {
                 moveCoords.push([(allMovesForKing[i][0]), (allMovesForKing[i][1])]);
-            } else if (chessBoard[allMovesForKing[i][0]][allMovesForKing[i][1]].includes(currentColor)) {
-                continue;
-            } else {
+            } else continue;
+        }
+    }
+    return moveCoords;
+}
+
+function getCaptureCoordsForKing(xCoord, yCoord) {
+    let captureCoords = [];
+    let allMovesForKing = [
+        [xCoord + 1, yCoord],
+        [xCoord - 1, yCoord],
+        [xCoord, yCoord + 1],
+        [xCoord, yCoord - 1],
+        [xCoord + 1, yCoord + 1],
+        [xCoord - 1, yCoord - 1],
+        [xCoord + 1, yCoord - 1],
+        [xCoord - 1, yCoord + 1]
+    ];
+
+    for (let i = 0; i < 8; i++) {
+        if ((allMovesForKing[i][0] > 7)
+        || (allMovesForKing[i][0] < 0)
+        || (allMovesForKing[i][1] > 7)
+        || (allMovesForKing[i][1] < 0)) continue;
+        else {
+            if (chessBoard[allMovesForKing[i][0]][allMovesForKing[i][1]].includes('none')) continue;
+            else if (chessBoard[allMovesForKing[i][0]][allMovesForKing[i][1]].includes(currentColor)) continue;
+            else {
                 captureCoords.push([(allMovesForKing[i][0]), (allMovesForKing[i][1])]);
             }
         }
     }
+    return captureCoords;
 }
 
 function getMoveAndCaptureCoordsForKnight(xCoord, yCoord) {
@@ -460,7 +486,8 @@ squares.forEach((square) => {
             if (pieceClickedOnName[0] === currentColor) {
                 switch(pieceClickedOnName[1]) {
                     case 'king':
-                    getMoveAndCaptureCoordsForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    moveCoords = getMoveCoordsForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    captureCoords = getCaptureCoordsForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'queen':
