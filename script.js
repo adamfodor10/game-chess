@@ -26,6 +26,11 @@ let currentColor = 'white';
 let moveCoords = [];
 let captureCoords = [];
 
+function setCurrentColor(stepNumber) {
+    if (stepNumber % 2 === 1) return 'white';
+    else return 'black';
+}
+
 // Store the information of the first click to use it during the second click
 let pieceToMoveName = [];
 let pieceToMoveCoords = [];
@@ -101,14 +106,45 @@ function getCaptureCoordsForRook(xCoord, yCoord) {
     return captureCoords;
 }
 
-function getMoveAndCaptureCoordsForBishop(xCoord, yCoord) {
+function getMoveCoordsForBishop(xCoord, yCoord) {
+    let moveCoords = [];
     for (let i = 1; i < 8; i++) {
         if (((xCoord + i) > 7) || ((yCoord + i) > 7)) break;
         if (chessBoard[xCoord + i][yCoord + i].includes('none')) {
             moveCoords.push([xCoord + i, yCoord + i]);
-        } else if (chessBoard[xCoord + i][yCoord + i].includes(currentColor)) {
-            break;
-        } else {
+        } else break;
+    }
+
+    for (let i = 1; i < 8; i++) {
+        if (((xCoord - i) < 0) || ((yCoord - i) < 0)) break;
+        if (chessBoard[xCoord - i][yCoord - i].includes('none')) {
+            moveCoords.push([xCoord - i, yCoord - i]);
+        } else break;
+    }
+
+    for (let i = 1; i < 8; i++) {
+        if (((xCoord + i) > 7) || ((yCoord - i) < 0)) break;
+        if (chessBoard[xCoord + i][yCoord - i].includes('none')) {
+            moveCoords.push([xCoord + i, yCoord - i]);
+        } else break;
+    }
+
+    for (let i = 1; i < 8; i++) {
+        if (((xCoord - i) < 0) || ((yCoord + i) > 7)) break;
+        if (chessBoard[xCoord - i][yCoord + i].includes('none')) {
+            moveCoords.push([xCoord - i, yCoord + i]);
+        } else break;
+    }
+    return moveCoords;
+}
+
+function getCaptureCoordsForBishop(xCoord, yCoord) {
+    let captureCoords = [];
+    for (let i = 1; i < 8; i++) {
+        if (((xCoord + i) > 7) || ((yCoord + i) > 7)) break;
+        if (chessBoard[xCoord + i][yCoord + i].includes('none')) continue;
+        else if (chessBoard[xCoord + i][yCoord + i].includes(currentColor)) break;
+        else {
             captureCoords.push([xCoord + i, yCoord + i]);
             break;
         }
@@ -116,11 +152,9 @@ function getMoveAndCaptureCoordsForBishop(xCoord, yCoord) {
 
     for (let i = 1; i < 8; i++) {
         if (((xCoord - i) < 0) || ((yCoord - i) < 0)) break;
-        if (chessBoard[xCoord - i][yCoord - i].includes('none')) {
-            moveCoords.push([xCoord - i, yCoord - i]);
-        } else if (chessBoard[xCoord - i][yCoord - i].includes(currentColor)) {
-            break;
-        } else {
+        if (chessBoard[xCoord - i][yCoord - i].includes('none')) continue;
+        else if (chessBoard[xCoord - i][yCoord - i].includes(currentColor)) break;
+        else {
             captureCoords.push([xCoord - i, yCoord - i]);
             break;
         }
@@ -128,11 +162,9 @@ function getMoveAndCaptureCoordsForBishop(xCoord, yCoord) {
 
     for (let i = 1; i < 8; i++) {
         if (((xCoord + i) > 7) || ((yCoord - i) < 0)) break;
-        if (chessBoard[xCoord + i][yCoord - i].includes('none')) {
-            moveCoords.push([xCoord + i, yCoord - i]);
-        } else if (chessBoard[xCoord + i][yCoord - i].includes(currentColor)) {
-            break;
-        } else {
+        if (chessBoard[xCoord + i][yCoord - i].includes('none')) continue;
+        else if (chessBoard[xCoord + i][yCoord - i].includes(currentColor)) break;
+        else {
             captureCoords.push([xCoord + i, yCoord - i]);
             break;
         }
@@ -140,15 +172,14 @@ function getMoveAndCaptureCoordsForBishop(xCoord, yCoord) {
 
     for (let i = 1; i < 8; i++) {
         if (((xCoord - i) < 0) || ((yCoord + i) > 7)) break;
-        if (chessBoard[xCoord - i][yCoord + i].includes('none')) {
-            moveCoords.push([xCoord - i, yCoord + i]);
-        } else if (chessBoard[xCoord - i][yCoord + i].includes(currentColor)) {
-            break;
-        } else {
+        if (chessBoard[xCoord - i][yCoord + i].includes('none')) continue;
+        else if (chessBoard[xCoord - i][yCoord + i].includes(currentColor)) break;
+        else {
             captureCoords.push([xCoord - i, yCoord + i]);
             break;
         }
     }
+    return captureCoords;
 }
 
 function getMoveAndCaptureCoordsForQueen(xCoord, yCoord) {
@@ -352,11 +383,6 @@ function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
     }
 }
 
-function setCurrentColor(stepNumber) {
-    if (stepNumber % 2 === 1) return 'white';
-    else return 'black';
-}
-
 const squares = document.querySelectorAll('.square');
 
 squares.forEach((square) => {
@@ -400,7 +426,8 @@ squares.forEach((square) => {
                     break;
 
                     case 'bishop':
-                    getMoveAndCaptureCoordsForBishop(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    moveCoords = getMoveCoordsForBishop(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    captureCoords = getCaptureCoordsForBishop(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
 
                     case 'knight':
