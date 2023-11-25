@@ -1,3 +1,5 @@
+// Store the position of the pieces
+// Dimension of the array: 8 column x 8 square x 2 property (color, piece)
 let chessBoard = [
     [['white', 'rook'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'rook']],
 
@@ -16,8 +18,21 @@ let chessBoard = [
     [['white', 'rook'], ['white', 'pawn'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['none', 'none'], ['black', 'pawn'], ['black', 'rook']]
 ];
 
-//These functions calculate all legal move and capture coordinates for the given piece
-//and store them in the moveCoords and captureCoords arrays
+// Step can be a move or a capture
+// Move is a step without eliminating an enemy piece
+// Capture is a step with eliminating an enemy piece
+let stepNumber = 1;
+let currentColor;
+let moveCoords = [];
+let captureCoords = [];
+
+// Store the information of the first click to use it during the second click
+let pieceToMoveName = [];
+let pieceToMoveCoords = [];
+let pieceToMoveImage;
+
+// These functions calculate all legal move and capture coordinates for the given piece
+// and store them in the moveCoords and captureCoords arrays
 function getMoveAndCaptureCoordsForRook(xCoord, yCoord) {
     for (let i = xCoord + 1; i < 8; i++) {
         if (chessBoard[i][yCoord].includes('none')) {
@@ -315,25 +330,16 @@ function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
     }
 }
 
-let stepNumber = 1;
-let currentColor = 'white';
-
-let moveCoords = [];
-let captureCoords = [];
-
-let pieceToMoveName = [];
-let pieceToMoveCoords = [];
-let pieceToMoveImage;
-
-const moveAudio = document.querySelector('.move-audio');
-const captureAudio = document.querySelector('.capture-audio');
+function setCurrentColor(stepNumber) {
+    if (stepNumber % 2 === 1) return 'white';
+    else return 'black';
+}
 
 const squares = document.querySelectorAll('.square');
 
 squares.forEach((square) => {
     square.addEventListener('click', () => {
-        if (stepNumber % 2 === 1) currentColor = 'white';
-        else currentColor = 'black';
+        currentColor = setCurrentColor(stepNumber);
 
         moveCoords = [];
         captureCoords = [];
@@ -348,7 +354,7 @@ squares.forEach((square) => {
         pieceClickedOnName.push(chessBoard[(squareClickedOnCoords[0])][(squareClickedOnCoords[1])][0]);
         pieceClickedOnName.push(chessBoard[(squareClickedOnCoords[0])][(squareClickedOnCoords[1])][1]);
 
-        //First click (the piece what the player wants to move)
+        // First click (the piece what the player wants to move)
         if (!((square.classList.contains('move-on-white-square'))
         || (square.classList.contains('move-on-black-square')) 
         || (square.classList.contains('capture-on-white-square')) 
@@ -358,12 +364,12 @@ squares.forEach((square) => {
             squares.forEach((square) => {square.classList.remove('capture-on-white-square')});
             squares.forEach((square) => {square.classList.remove('capture-on-black-square')});
 
-            //Store the information of the first click to use it during the second click
+            // Store the information of the first click to use it during the second click
             pieceToMoveName = pieceClickedOnName;
             pieceToMoveCoords = squareClickedOnCoords;
             pieceToMoveImage = square.firstElementChild;
 
-            //Calculate all legal move and capture coordinates
+            // Calculate all legal move and capture coordinates
             if (pieceClickedOnName[0] === currentColor) {
                 switch(pieceClickedOnName[1]) {
                     case 'king':
@@ -393,7 +399,7 @@ squares.forEach((square) => {
                 }
             }
 
-            //Change the background color of the squares in the moveCoords and captureCoords arrays
+            // Change the background color of the squares in the moveCoords and captureCoords arrays
             squares.forEach((square) => {
                 let squareCoords = square.classList[0].split('');
                 squareCoords.shift();
@@ -426,20 +432,22 @@ squares.forEach((square) => {
                 }
             });
 
-        //Second click (the square where the player wants to move the piece to)
+        // Second click (the square where the player wants to move the piece to)
         } else {
             squares.forEach((square) => {square.classList.remove('move-on-white-square')});
             squares.forEach((square) => {square.classList.remove('move-on-black-square')});
             squares.forEach((square) => {square.classList.remove('capture-on-white-square')});
             squares.forEach((square) => {square.classList.remove('capture-on-black-square')});
 
-            //Execute the step
+            // Execute the step
             chessBoard[squareClickedOnCoords[0]][squareClickedOnCoords[1]] = pieceToMoveName;
             chessBoard[pieceToMoveCoords[0]][pieceToMoveCoords[1]] = ['none', 'none'];
             if (square.firstElementChild) {
+                const captureAudio = document.querySelector('.capture-audio');
                 captureAudio.play();
                 square.removeChild(square.firstElementChild);
             } else {
+                const moveAudio = document.querySelector('.move-audio');
                 moveAudio.play();
             }
             square.appendChild(pieceToMoveImage);
