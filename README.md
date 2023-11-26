@@ -28,3 +28,5 @@ Check out the game at: https://adamfodor10.github.io/game-chess/
 ## Screenshots of the game:
 ![Screenshot of chess starting position](./images/screenshot-one.png)
 ![Screenshot of chess mid-game position](./images/screenshot-two.png)
+![Screenshot of chess mid-game position](./images/screenshot-three.png)
+![Screenshot of chess end-game position](./images/screenshot-four.png)

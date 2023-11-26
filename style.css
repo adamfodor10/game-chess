@@ -178,11 +178,19 @@ body {
     background-color: grey;
 }
 
-.last-step-on-white-square {
+.previous-step-on-white-square {
     background-color: rgb(255, 255, 200);
 }
 
-.last-step-on-black-square {
+.previous-step-on-black-square {
+    background-color: rgb(255, 255, 100);
+}
+
+.current-step-on-white-square {
+    background-color: rgb(255, 255, 200);
+}
+
+.current-step-on-black-square {
     background-color: rgb(255, 255, 100);
 }
 
