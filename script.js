@@ -584,7 +584,6 @@ squares.forEach((square) => {
             pieceToMoveCoords = squareClickedOnCoords;
             pieceToMoveImage = square.firstElementChild;
 
-            // Calculate all legal move and capture coordinates
             if (pieceClickedOnName[0] === currentColor) {
 
                 // Update background color for the current step coordinates (yellow background color)
@@ -592,6 +591,7 @@ squares.forEach((square) => {
                 currentStepCoords.push(squareClickedOnCoords);
                 addBackgroundColor(currentStepCoords, 'currentStep');
 
+                // Calculate all legal move and capture coordinates
                 switch(pieceClickedOnName[1]) {
                     case 'king':
                     moveCoords = getMoveCoordsForKing(squareClickedOnCoords[0], squareClickedOnCoords[1]);
