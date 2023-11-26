@@ -651,10 +651,10 @@ squares.forEach((square) => {
             stepNumber++;
 
             // Update background color for the previous step coordinates (yellow background color)
-            let lastStepCoords = [];
-            lastStepCoords.push(squareClickedOnCoords);
-            lastStepCoords.push(pieceToMoveCoords);
-            addBackgroundColor(lastStepCoords, 'previousStep');
+            let previousStepCoords = [];
+            previousStepCoords.push(squareClickedOnCoords);
+            previousStepCoords.push(pieceToMoveCoords);
+            addBackgroundColor(previousStepCoords, 'previousStep');
         }
     })
 });
