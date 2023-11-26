@@ -432,7 +432,8 @@ function getCaptureCoordsForKnight(xCoord, yCoord) {
     return captureCoords;
 }
 
-function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
+function getMoveCoordsForPawn(xCoord, yCoord) {
+    let moveCoords = [];
     if (currentColor === 'white') {
         if (yCoord + 1 <= 7) {
             if (chessBoard[xCoord][yCoord + 1].includes('none')) {
@@ -443,15 +444,6 @@ function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
             if (chessBoard[xCoord][yCoord + 2].includes('none')) {
                 moveCoords.push([(xCoord), (yCoord + 2)]);
             }
-        }
-
-        if (((xCoord + 1) <= 7) && ((yCoord + 1) <= 7)
-        && (chessBoard[xCoord + 1][yCoord + 1].includes('black'))) {
-            captureCoords.push([(xCoord + 1), (yCoord + 1)]);
-        }
-        if (((xCoord - 1) >= 0) && ((yCoord + 1) <= 7)
-        && (chessBoard[xCoord - 1][yCoord + 1].includes('black'))) {
-            captureCoords.push([(xCoord - 1), (yCoord + 1)]);
         }
     }
 
@@ -466,7 +458,24 @@ function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
                 moveCoords.push([(xCoord), (yCoord - 2)]);
             }
         }
+    }
+    return moveCoords;
+}
 
+function getCaptureCoordsForPawn(xCoord, yCoord) {
+    let captureCoords = [];
+    if (currentColor === 'white') {
+        if (((xCoord + 1) <= 7) && ((yCoord + 1) <= 7)
+        && (chessBoard[xCoord + 1][yCoord + 1].includes('black'))) {
+            captureCoords.push([(xCoord + 1), (yCoord + 1)]);
+        }
+        if (((xCoord - 1) >= 0) && ((yCoord + 1) <= 7)
+        && (chessBoard[xCoord - 1][yCoord + 1].includes('black'))) {
+            captureCoords.push([(xCoord - 1), (yCoord + 1)]);
+        }
+    }
+
+    if (currentColor === 'black') {
         if (((xCoord + 1) <= 7) && ((yCoord - 1) >= 0)
         && (chessBoard[xCoord + 1][yCoord - 1].includes('white'))) {
             captureCoords.push([(xCoord + 1), (yCoord - 1)]);
@@ -476,6 +485,7 @@ function getMoveAndCaptureCoordsForPawn(xCoord, yCoord) {
             captureCoords.push([(xCoord - 1), (yCoord - 1)]);
         }
     }
+    return captureCoords;
 }
 
 const squares = document.querySelectorAll('.square');
@@ -538,7 +548,8 @@ squares.forEach((square) => {
                     break;
                 
                     case 'pawn':
-                    getMoveAndCaptureCoordsForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    moveCoords = getMoveCoordsForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
+                    captureCoords = getCaptureCoordsForPawn(squareClickedOnCoords[0], squareClickedOnCoords[1]);
                     break;
                 }
             } else {
