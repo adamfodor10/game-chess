@@ -179,33 +179,33 @@ body {
 }
 
 .previous-step-on-white-square {
-    background-color: rgb(255, 255, 200);
+    background-color: #fdfdba;
 }
 
 .previous-step-on-black-square {
-    background-color: rgb(255, 255, 100);
+    background-color: #c8c803;
 }
 
 .current-step-on-white-square {
-    background-color: rgb(255, 255, 200);
+    background-color: #fdfdba;
 }
 
 .current-step-on-black-square {
-    background-color: rgb(255, 255, 100);
+    background-color: #c8c803;
 }
 
 .move-on-white-square {
-    background-color: lightgreen;
+    background-color: #bad6b8;
 }
 
 .move-on-black-square {
-    background-color: darkgreen;
+    background-color: #447241;
 }
 
 .capture-on-white-square {
-    background-color: lightpink;
+    background-color: #ff8680;
 }
 
 .capture-on-black-square {
-    background-color: darkred;
+    background-color: #9b0700;
 }
