@@ -178,6 +178,14 @@ body {
     background-color: grey;
 }
 
+.last-step-on-white-square {
+    background-color: rgb(255, 255, 200);
+}
+
+.last-step-on-black-square {
+    background-color: rgb(255, 255, 100);
+}
+
 .move-on-white-square {
     background-color: lightgreen;
 }
