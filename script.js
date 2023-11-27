@@ -26,11 +26,6 @@ let currentColor = 'white';
 let moveCoords = [];
 let captureCoords = [];
 
-function setCurrentColor(stepNumber) {
-    if (stepNumber % 2 === 1) return 'white';
-    else return 'black';
-}
-
 // getMoveCoordsFor... functions calculate all legal move coordinates for the given piece
 // getCaptureCoordsFor... functions calculate all legal capture coordinates for the given piece
 function getMoveCoordsForRook(xCoord, yCoord) {
@@ -560,7 +555,8 @@ function removeBackgroundColor(move, capture, currentStep, previousStep) {
 // Event listener to handle all click events
 squares.forEach((square) => {
     square.addEventListener('click', () => {
-        currentColor = setCurrentColor(stepNumber);
+        if (stepNumber % 2 === 1) currentColor = 'white';
+        else currentColor = 'black';
 
         let squareClickedOnCoords = square.classList[0].split('');
         squareClickedOnCoords.shift();
